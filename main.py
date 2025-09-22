@@ -96,6 +96,9 @@ def train_insurance_model():
         
 
         mlflow.sklearn.log_model(model, "random_forest_model")
+        run_id = mlflow.active_run().info.run_id
+        model_uri = f"runs:/{run_id}/random_forest_model"
+        mlflow.register_model(model_uri, "random_forest_model")
         
         print(f"Train MSE: {train_mse:.2f}$, RMSE: {train_rmse:.2f}$, MAE: {train_mae:.2f}$, R2: {train_r2:.4f}")
         print(f"Test MSE: {test_mse:.2f}$, RMSE: {test_rmse:.2f}$, MAE: {test_mae:.2f}$, R2: {test_r2:.4f}")
